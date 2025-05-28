@@ -35,8 +35,14 @@
     L.geoJSON(geojsonData, {
       onEachFeature: function (feature, layer) {
         if (feature.properties && feature.properties.name) {
-          const popup = `<strong>${feature.properties.name}</strong><br>${feature.properties.description || ''}`;
-          layer.bindPopup(popup);
+          let description = "";
+          if (typeof feature.properties.description === "object") {
+            description = feature.properties.description.value || "";
+          } else {
+            description = feature.properties.description || "";
+          }
+          const popupContent = `<strong>${feature.properties.name}</strong><br>${description}`;
+          layer.bindPopup(popupContent);
         }
       }
     }).addTo(map);
