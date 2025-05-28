@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mappa Leopardi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha512-sA+e219zYwOpk1iEg5hJ6G2YJ4QvCyBU4Npnt2+TQCRbGbkKthqLUwvFRL9fmmf+eU8NpZyVJB5R5+VXDZF2FSdEg=="
+    crossorigin=""
+  />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #map {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha512-o88+p8gp5JqD87e5n8kgiblbLDXnIRZrknIxufxFQoR89ZABEcJ1C5P0thzLojx3Mg8MFc6w1/WFz+4wb1sVg=="
+    crossorigin=""
+  ></script>
+
+  <script>
+    const map = L.map('map').setView([43.0, 12.5], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+    }).addTo(map);
+
+    fetch('mappa.geojson')
+      .then(response => response.json())
+      .then(data => {
+        L.geoJSON(data, {
+          onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.name) {
+              layer.bindPopup(`<strong>${feature.properties.name}</strong><br>${feature.properties.description}`);
+            }
+          }
+        }).addTo(map);
+      });
+  </script>
+</body>
+</html>
