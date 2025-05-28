@@ -7,7 +7,6 @@
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha512-sA+e219zYwOpk1iEg5hJ6G2YJ4QvCyBU4Npnt2+TQCRbGbkKthqLUwvFRL9fmmf+eU8NpZyVJB5R5+VXDZF2FSdEg=="
     crossorigin=""
   />
   <style>
@@ -23,31 +22,24 @@
 </head>
 <body>
   <div id="map"></div>
-
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha512-o88+p8gp5JqD87e5n8kgiblbLDXnIRZrknIxufxFQoR89ZABEcJ1C5P0thzLojx3Mg8MFc6w1/WFz+4wb1sVg=="
-    crossorigin=""
-  ></script>
-
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script>
     const map = L.map('map').setView([43.0, 12.5], 6);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+      attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    fetch('mappa.geojson')
-      .then(response => response.json())
-      .then(data => {
-        L.geoJSON(data, {
-          onEachFeature: function (feature, layer) {
-            if (feature.properties && feature.properties.name) {
-              layer.bindPopup(`<strong>${feature.properties.name}</strong><br>${feature.properties.description}`);
-            }
-          }
-        }).addTo(map);
-      });
+    const geojsonData = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [12.4822025, 41.8967068, 0]}, "properties": {"name": "Roma", "description": {"@type": "html", "value": "<img src=\"https://mymaps.usercontent.google.com/hostedimage/m/*/3ADbDBKu6Zd-tIpUBBwjM4PI5oongSTYv_-f1pMB65cdYlfmsvHgtG74SkJ8boA6PXb9n58uLjh_OsRTN9ry3SIXn-oTIsTe9nUyS_s85AwlXF61AfbP_509h10kyiBrdnbczyX_YuaaQJ5bqCPth02_3F0_m-DprizCiwmSTKSAbnTu-ghOC1524ts1_dDo6iRZxWDhQ02w7bUak4nQzLD9vDWQAmH8t222yw3Q6Vr6HPREAn5U7Re3FQSDN4AA?authuser=0&fife=s16383\" height=\"200\" width=\"auto\" /><br><br>Leopardi si recò a Roma nel 1822, pieno di aspettative. Sperava di inserirsi nella vita culturale italiana, ma rimase presto deluso. Visse presso lo zio materno, Carlo Antici, a Palazzo Antici Mattei, ed entrò in contatto con salotti aristocratici e ambienti ecclesiastici. Tuttavia, trovò una città statica, conservatrice e chiusa al pensiero critico.<br>L'esperienza romana lo segnò profondamente, accrescendo la sua sfiducia nella società e nella cultura contemporanea. In questo contesto maturò il cosiddetto pessimismo storico, ovvero l’idea che il mondo moderno, rispetto alla grandezza dell’antichità, fosse ormai in decadenza.<br>Roma, da simbolo ideale di classicità, si rivelò per lui una delusione. Dopo poco più di un anno, nel 1823, lasciò la città amareggiato. La tappa romana fu così importante non per i successi ottenuti, ma perché contribuì in modo decisivo all’evoluzione del suo pensiero verso il pessimismo cosmico, tanto che, in una lettera a Pietro Giordani, Leopardi, deluso dall’ambiente romano, scriveva: “Qui non si respira aria di sapere.”"}, "styleUrl": "#icon-seq2-0-0-E65100-labelson", "icon-opacity": 1, "icon-color": "#e65100", "icon-scale": 1, "icon": "images/icon-1.png", "gx_media_links": "https://mymaps.usercontent.google.com/hostedimage/m/*/3ADbDBKu6Zd-tIpUBBwjM4PI5oongSTYv_-f1pMB65cdYlfmsvHgtG74SkJ8boA6PXb9n58uLjh_OsRTN9ry3SIXn-oTIsTe9nUyS_s85AwlXF61AfbP_509h10kyiBrdnbczyX_YuaaQJ5bqCPth02_3F0_m-DprizCiwmSTKSAbnTu-ghOC1524ts1_dDo6iRZxWDhQ02w7bUak4nQzLD9vDWQAmH8t222yw3Q6Vr6HPREAn5U7Re3FQSDN4AA?authuser=0&fife=s16383"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [12.4783013, 41.8940027, 0]}, "properties": {"name": "Palazzo Mattei", "description": {"@type": "html", "value": "<img src=\"https://mymaps.usercontent.google.com/hostedimage/m/*/3ADbDBKuos7h_v4c8uXIa1QOsBHlSxdHoCBOPGFJ2GsqtGW_sEpBgjaGrkNwpYseH-SH4tLA_TssR7HkigraNKYcRFXM1cEDWFJV6-9KF99XydBuT1gLVRU5z4PjqR8mjQ0lpVJxjZqNsZ3Bz8j-Upwi3gyOEF1iQ_FniX_W2qAv2N957kF92TG59sykSWh2gYDLcYjVMzO32QlWgRMWuyIP590eDT4v6ej6uKcabc91geVeU2M72bI7fITjQaWw?authuser=0&fife=s16383\" height=\"200\" width=\"auto\" /><br><br>Luogo del soggiorno di Leopardi a Roma in quanto casa dello zio. L’edificio, situato nel cuore del rione Sant’Angelo, divenne il suo rifugio nella capitale, ma non fu mai davvero un luogo di serenità o ispirazione."}, "styleUrl": "#icon-seq2-0-1-E65100-labelson", "icon-opacity": 1, "icon-color": "#e65100", "icon-scale": 1, "icon": "images/icon-2.png", "gx_media_links": "https://mymaps.usercontent.google.com/hostedimage/m/*/3ADbDBKuos7h_v4c8uXIa1QOsBHlSxdHoCBOPGFJ2GsqtGW_sEpBgjaGrkNwpYseH-SH4tLA_TssR7HkigraNKYcRFXM1cEDWFJV6-9KF99XydBuT1gLVRU5z4PjqR8mjQ0lpVJxjZqNsZ3Bz8j-Upwi3gyOEF1iQ_FniX_W2qAv2N957kF92TG59sykSWh2gYDLcYjVMzO32QlWgRMWuyIP590eDT4v6ej6uKcabc91geVeU2M72bI7fITjQaWw?authuser=0&fife=s16383"}}]};
+
+    L.geoJSON(geojsonData, {
+      onEachFeature: function (feature, layer) {
+        if (feature.properties && feature.properties.name) {
+          const popup = `<strong>${feature.properties.name}</strong><br>${feature.properties.description || ''}`;
+          layer.bindPopup(popup);
+        }
+      }
+    }).addTo(map);
   </script>
 </body>
 </html>
